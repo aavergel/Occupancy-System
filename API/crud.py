@@ -1,3 +1,4 @@
+from dotenv import dotenv_values
 import flask
 from flask import jsonify
 from flask import request
@@ -8,18 +9,17 @@ from sql import execute_read_query
 
 from random import randrange
 
-class Creds:
-    host = 'hpst'
-    user = 'user'
-    password = 'password'
-    database = 'database'
-
+config = dotenv_values()
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
-conn = create_connection(Creds.host, Creds.user, Creds.password, Creds.database)
-
+conn = create_connection(
+    host = config['host'],
+    user =  config['user'],
+    password =  config['password'],
+    database =  config['database']
+)
 
 # FLOOR TABLE OPERATIONS
 
